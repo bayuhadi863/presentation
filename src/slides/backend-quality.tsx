@@ -108,7 +108,10 @@ export default function BackendQualitySlide({ mode }: SlideProps) {
   }
 
   return (
-    <section className={`${sectionClass} border border-white/10`} id={backendQualityId}>
+    <section
+      className={`${sectionClass} border border-white/10`}
+      id={backendQualityId}
+    >
       <div className="flex items-center justify-between gap-3">
         <p className="m-0 text-[0.74rem] uppercase tracking-[0.2em] text-emerald-300/80 font-medium">
           Experimental Results
@@ -120,7 +123,7 @@ export default function BackendQualitySlide({ mode }: SlideProps) {
       <h2 className="mt-8 text-[clamp(1.5rem,2.6vw,2.35rem)] leading-none tracking-[-0.04em] font-bold text-white mb-6">
         Backend Quality Assessment
       </h2>
-      <div className="space-y-4 overflow-auto max-h-[60vh] pr-2">
+      <div className="space-y-4 overflow-auto pr-2">
         {criteria.map((item, i) => (
           <div
             key={i}

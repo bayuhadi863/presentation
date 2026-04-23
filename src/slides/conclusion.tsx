@@ -67,7 +67,8 @@ export default function ConclusionSlide({ mode }: SlideProps) {
 
           <div className="mt-16 p-6 rounded-[32px] bg-gradient-to-r from-emerald-500/20 to-sky-500/20 border border-white/10 backdrop-blur-sm">
             <p className="m-0 text-center text-emerald-100 font-medium italic text-lg">
-              "Transforming complex multi-platform development into a streamlined, consistent, and AI-accelerated process."
+              "Transforming complex multi-platform development into a
+              streamlined, consistent, and AI-accelerated process."
             </p>
           </div>
         </div>
@@ -76,7 +77,10 @@ export default function ConclusionSlide({ mode }: SlideProps) {
   }
 
   return (
-    <section className={`${sectionClass} border border-white/10`} id={conclusionId}>
+    <section
+      className={`${sectionClass} border border-white/10`}
+      id={conclusionId}
+    >
       <div className="flex items-center justify-between gap-3">
         <p className="m-0 text-[0.74rem] uppercase tracking-[0.2em] text-emerald-300/80 font-medium">
           Final Synthesis
@@ -88,9 +92,12 @@ export default function ConclusionSlide({ mode }: SlideProps) {
       <h2 className="mt-8 text-[clamp(1.8rem,4vw,2.8rem)] leading-none tracking-[-0.04em] font-bold text-white mb-8 text-center md:text-left">
         Research Conclusion
       </h2>
-      <div className="space-y-6 overflow-auto max-h-[60vh] pr-2">
+      <div className="space-y-6 overflow-auto pr-2">
         {points.map((point, i) => (
-          <div key={i} className="bg-white/5 border border-white/10 p-5 rounded-2xl">
+          <div
+            key={i}
+            className="bg-white/5 border border-white/10 p-5 rounded-2xl"
+          >
             <h4 className="text-emerald-300 font-bold mb-2 flex items-center gap-3">
               {point.title}
             </h4>
