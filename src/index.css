@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+
+  --scrollbar: rgba(156, 163, 175, 0.4);
+  --scrollbar-hover: rgba(156, 163, 175, 0.6);
+  --background: transparent;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --scrollbar: rgba(0, 0, 0, 0.2);
+    --scrollbar-hover: rgba(0, 0, 0, 0.3);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar) var(--background);
+}
+
+/* Webkit-specific scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+/* ═══════════════════════════════════════════════════
+   Print / Export-to-PDF styles
+   ═══════════════════════════════════════════════════ */
+
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+
+@media print {
+  /* Force background colors & images to print */
+  *,
+  *::before,
+  *::after {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Hide everything except the print area */
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #07111f !important;
+    min-height: auto !important;
+  }
+
+  #app-root {
+    display: none !important;
+  }
+
+  /* Show the print area */
+  #print-area {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+  }
+
+  /* Each slide occupies exactly one printed page */
+  .print-slide {
+    width: 297mm;
+    height: 210mm;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    background: #07111f;
+  }
+
+  /* Remove page break after last slide to avoid trailing blank page */
+  .print-slide:last-child {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Ensure slide content fills the page */
+  .print-slide > * {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Disable animations during print */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+
+  /* Hide scrollbars */
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  * {
+    scrollbar-width: none !important;
+  }
+}
