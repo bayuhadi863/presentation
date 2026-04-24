@@ -6,18 +6,37 @@ import CodegenMainSlide, {
   codegenMainId,
   codegenMainLabel,
 } from "./codegen-main";
-import CodegenLLMSlide, {
-  codegenLLMId,
-  codegenLLMLabel,
-} from "./codegen-llm";
-import CodegenGitSlide, {
-  codegenGitId,
-  codegenGitLabel,
-} from "./codegen-git";
-import CodegenJobSlide, {
-  codegenJobId,
-  codegenJobLabel,
-} from "./codegen-job";
+import CodegenLLMSlide, { codegenLLMId, codegenLLMLabel } from "./codegen-llm";
+import CodegenGitSlide, { codegenGitId, codegenGitLabel } from "./codegen-git";
+import CodegenJobSlide, { codegenJobId, codegenJobLabel } from "./codegen-job";
+import CodegenGenerateSlide, {
+  codegenGenerateId,
+  codegenGenerateLabel,
+} from "./codegen-generate";
+import CodegenHistorySlide, {
+  codegenHistoryId,
+  codegenHistoryLabel,
+} from "./codegen-history";
+import CodegenDetailSlide, {
+  codegenDetailId,
+  codegenDetailLabel,
+} from "./codegen-detail";
+import CodegenResultSlide, {
+  codegenResultId,
+  codegenResultLabel,
+} from "./codegen-result";
+import CodegenGitlabPRSlide, {
+  codegenGitlabPRId,
+  codegenGitlabPRLabel,
+} from "./codegen-gitlab-pr";
+import CodegenGitlabCommitSlide, {
+  codegenGitlabCommitId,
+  codegenGitlabCommitLabel,
+} from "./codegen-gitlab-commit";
+import CodegenSwaggerSlide, {
+  codegenSwaggerId,
+  codegenSwaggerLabel,
+} from "./codegen-swagger";
 import AIImplDataStructureSlide, {
   aiImplDataStructureId,
   aiImplDataStructureLabel,
@@ -46,10 +65,7 @@ import BackendQualitySlide, {
   backendQualityId,
   backendQualityLabel,
 } from "./backend-quality";
-import ConclusionSlide, {
-  conclusionId,
-  conclusionLabel,
-} from "./conclusion";
+import ConclusionSlide, { conclusionId, conclusionLabel } from "./conclusion";
 import SuggestionsSlide, {
   suggestionsId,
   suggestionsLabel,
@@ -86,6 +102,41 @@ export const slides: SlideDefinition[] = [
     id: aiImplTransformationId,
     label: aiImplTransformationLabel,
     Component: AIImplTransformationSlide,
+  },
+  {
+    id: codegenGenerateId,
+    label: codegenGenerateLabel,
+    Component: CodegenGenerateSlide,
+  },
+  {
+    id: codegenHistoryId,
+    label: codegenHistoryLabel,
+    Component: CodegenHistorySlide,
+  },
+  {
+    id: codegenDetailId,
+    label: codegenDetailLabel,
+    Component: CodegenDetailSlide,
+  },
+  {
+    id: codegenResultId,
+    label: codegenResultLabel,
+    Component: CodegenResultSlide,
+  },
+  {
+    id: codegenGitlabPRId,
+    label: codegenGitlabPRLabel,
+    Component: CodegenGitlabPRSlide,
+  },
+  {
+    id: codegenGitlabCommitId,
+    label: codegenGitlabCommitLabel,
+    Component: CodegenGitlabCommitSlide,
+  },
+  {
+    id: codegenSwaggerId,
+    label: codegenSwaggerLabel,
+    Component: CodegenSwaggerSlide,
   },
   {
     id: backendCoverageId,

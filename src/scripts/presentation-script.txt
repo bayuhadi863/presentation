@@ -1,0 +1,547 @@
+================================================================================
+                    FINAL PROJECT DEFENSE PRESENTATION SCRIPT
+                              Academic Year 2025/2026
+================================================================================
+
+PROJECT TITLE:
+Development of Metadata-Based DSL Utilizing LLMs for Adaptive Multi-Platform 
+Code Generation
+
+PRESENTER:       Bayu Hadi Leksana
+ID:              3125640011
+INSTITUTION:     Politeknik Elektronika Negeri Surabaya (PENS)
+PRESENTATION:    Final Project Defense (Tugas Akhir / D4)
+DATE:            April 24, 2026
+DURATION:        Approximately 12-14 minutes (18 slides)
+
+================================================================================
+SPEAKER NOTES & TIMING GUIDANCE
+================================================================================
+
+[Note to Presenter: This is a full verbatim script. Read naturally and maintain 
+eye contact with the audience while glancing at this script. Allocate approximately 
+45-60 seconds per slide. Speak clearly and pause at [PAUSE] markers to allow 
+content absorption. Mark time after slide 9 to ensure you stay on schedule.]
+
+================================================================================
+SLIDE 1: WELCOME & INTRODUCTION (30 seconds)
+================================================================================
+
+[PAUSE - Make eye contact. Introduce yourself clearly.]
+
+Good [morning/afternoon], honorable board members, faculty advisors, and esteemed 
+colleagues.
+
+My name is Bayu Hadi Leksana, student ID 3125640011. I am a final-year student at 
+the Politeknik Elektronika Negeri Surabaya, and today I am presenting my final project 
+on the Development of a Metadata-Based Domain-Specific Language Utilizing Large Language 
+Models for Adaptive Multi-Platform Code Generation.
+
+[PAUSE]
+
+I would like to express my gratitude to my advisory board: Ibu Umi Sa'adah, Bapak Adam 
+Shidqul Aziz, and Bapak Willy Achmat Fauzi for their guidance and support throughout 
+this research project.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 2: PROBLEM STATEMENT (60 seconds)
+================================================================================
+
+[PAUSE - Allow time for audience to read the slide content.]
+
+Let me begin by outlining the core challenges that motivated this research.
+
+In modern software development, organizations increasingly face the challenge of 
+deploying applications across multiple heterogeneous technology platforms. However, 
+this multi-platform requirement creates three significant problems:
+
+First, manual multi-platform development leads to inconsistency. When developers 
+manually code for different platforms—such as ASP.NET Core backends and React TypeScript 
+frontends—differences in implementation logic often emerge. This inconsistency causes 
+what we call "logic drift," where the same business logic behaves differently across 
+platforms, resulting in bugs and maintenance overhead.
+
+Second, current development approaches are repetitively slow. Commercial low-code tools 
+require extensive manual configuration for each platform variation, consuming valuable 
+development time.
+
+Third, we face fragmented ecosystems. Each platform typically operates within its own 
+isolated tool and library ecosystem, making unified control and consistency extremely 
+difficult to achieve.
+
+[PAUSE - Let this sink in before advancing]
+
+The core challenge we address is: "How can we maintain consistency across heterogeneous 
+technology stacks while meeting short release cycles?"
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 3: RESEARCH OBJECTIVES & SYSTEM VISION (60 seconds)
+================================================================================
+
+[PAUSE]
+
+To address these challenges, our research establishes three primary objectives that 
+form the foundation of our proposed solution.
+
+Our first objective is to develop an SSoT-Based Low-Code Platform using JSON metadata 
+as a Single Source of Truth. By establishing a unified metadata model, we ensure that 
+all platform-specific code generations derive from a single authoritative source, 
+eliminating inconsistency at the root.
+
+Our second objective is to create an LLM-Powered AI Assistant. We leverage Large 
+Language Models to provide intelligent guidance and rapid configuration, accelerating 
+the development process while maintaining quality and consistency.
+
+Our third objective is to implement Multi-Platform Code Generation for both ASP.NET 
+Core backends and React TypeScript frontends. This enables developers to generate 
+production-ready code simultaneously for multiple platforms from a single configuration.
+
+[PAUSE]
+
+Our overarching vision is to "Bridge the gap between high-level domain intent and 
+production-ready code." By combining metadata-driven architecture, AI assistance, and 
+intelligent code generation, we aim to transform multi-platform development from a 
+tedious, error-prone process into a streamlined, consistent, and accelerated workflow.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 4: AI ASSISTANT WORKFLOW - SEQUENCE DIAGRAM (50 seconds)
+================================================================================
+
+[PAUSE - Point to the diagram on the screen.]
+
+Now, let me walk you through the AI Assistant workflow. This is a sequence diagram 
+that illustrates how our system processes user requests through the AI assistant.
+
+The workflow begins when a user submits an intent or query through the frontend. The 
+frontend forwards this request to the backend API. The backend then communicates with 
+our Large Language Model API—in this case, we utilize external LLM services for 
+intelligent processing.
+
+[PAUSE]
+
+The LLM analyzes the user's intent and returns a JSON classification or generation 
+response. This JSON response contains structured metadata that describes the desired 
+configuration or entity structure. The backend receives this JSON, parses it, and 
+renders it back to the frontend for user confirmation.
+
+[PAUSE]
+
+This workflow demonstrates the seamless integration between user intent, AI 
+intelligence, and structured data generation. The LLM acts as an intelligent mediator 
+that translates natural language requests into precise JSON metadata, which our system 
+can then use for downstream code generation.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 5: CODEGEN WORKFLOW - MAIN SYSTEM FLOW (50 seconds)
+================================================================================
+
+[PAUSE - Reference the main sequence diagram.]
+
+This slide presents the primary system workflow for code generation. Notice the 
+message-driven architecture that enables asynchronous, scalable processing.
+
+The flow is initiated when a user requests code generation through the frontend. This 
+request is sent to the backend. Rather than generating code synchronously—which could 
+cause timeouts for large requests—the backend publishes this request as a message to 
+our message broker, specifically RabbitMQ.
+
+[PAUSE]
+
+The message broker ensures reliable, asynchronous message delivery. A dedicated Worker 
+Service subscribes to these messages and processes the code generation tasks. Upon 
+completion, the worker communicates with our Git Provider to create version control 
+records.
+
+[PAUSE]
+
+This architecture provides several advantages: it decouples the frontend from long-running 
+backend processes, enables horizontal scalability through multiple worker instances, and 
+ensures reliable message delivery even during system failures.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 6: LLM INTEGRATION & BATCHING OPTIMIZATION (50 seconds)
+================================================================================
+
+[PAUSE]
+
+A key technical achievement in our system is the implementation of intelligent LLM 
+batching strategy to optimize API performance and cost.
+
+When our backend processes a code generation request, it first assembles context from 
+two sources: the JSON metadata that defines what to generate, and the existing 
+repository files that provide structural context. This context is then sent to the 
+LLM API.
+
+However, LLM APIs charge based on token usage, and large single requests become 
+prohibitively expensive and risk exceeding token limits. Our solution implements a 
+batching strategy: for backend code generation, we send the metadata in batches of 
+five files at a time. This reduces token consumption per request while maintaining 
+code consistency through context awareness.
+
+[PAUSE]
+
+The LLM returns JSON-formatted responses for each batch. Our backend then parses these 
+JSON responses and assembles all generated files into a cohesive unit. This approach 
+balances token efficiency, API cost optimization, and generation quality.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 7: GIT PROVIDER OPERATIONS - AUTOMATED VERSION CONTROL (45 seconds)
+================================================================================
+
+[PAUSE - Reference the Git operations diagram.]
+
+Our system automates the entire version control workflow. Once code generation is 
+complete, the following automated Git operations execute:
+
+First, the system parses the generated JSON to identify all files that need to be 
+created or modified. Second, it creates a new Git branch with a unique identifier. 
+Third, it builds comprehensive file actions—delete, create, or modify operations for 
+each file.
+
+[PAUSE]
+
+Fourth, the system commits all changes atomically with a descriptive commit message. 
+Fifth, it creates a pull request with a detailed description of changes, allowing 
+developers to review before merging.
+
+[PAUSE]
+
+This automation eliminates manual Git operations and ensures consistent, traceable 
+version control of all generated code.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 8: JOB LIFECYCLE & STATUS TRACKING (45 seconds)
+================================================================================
+
+[PAUSE]
+
+This slide illustrates the job lifecycle and how our system tracks code generation 
+progress in real-time.
+
+When a user initiates code generation, a job is created with an initial "waiting" 
+status. This job record is stored in our database. Simultaneously, a message is 
+published to RabbitMQ.
+
+[PAUSE]
+
+The worker service consumes this message from the queue, and the job status immediately 
+transitions to "processing." During this phase, the worker performs actual code 
+generation, batches requests to the LLM, receives responses, and prepares files.
+
+[PAUSE]
+
+Upon successful completion, the job status updates to "completed." The frontend can 
+poll or subscribe to job status updates, providing users with real-time feedback about 
+generation progress. If any error occurs, the status transitions to "failed" with error 
+details logged.
+
+This mechanism ensures users always have visibility into their code generation requests.
+
+[NEXT SLIDE - TIMING CHECK: You should be approximately 5-6 minutes into your 
+presentation. Adjust pace if necessary.]
+
+================================================================================
+SLIDE 9: FRONTEND AI ASSISTANT IMPLEMENTATION - DATA STRUCTURE (12 seconds)
+================================================================================
+
+[PAUSE - Show the screenshot on screen.]
+
+Now we move to showcasing the actual frontend implementation of our AI Assistant. 
+This first UI screenshot displays the data structure view where users define entity 
+models with fields, types, and relationships.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 10: FRONTEND IMPLEMENTATION - INDEX VIEW & TABLE CONFIGURATION (12 seconds)
+================================================================================
+
+[PAUSE]
+
+This screenshot shows the index view configuration interface, where users define how 
+data is displayed in table format, including column configuration and display options.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 11: FRONTEND IMPLEMENTATION - FIELD VALIDATION LOGIC (12 seconds)
+================================================================================
+
+[PAUSE]
+
+This interface allows users to configure field validation rules—required fields, data 
+types, length constraints, and custom validation logic—without writing code.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 12: FRONTEND IMPLEMENTATION - DATA SANITIZATION RULES (12 seconds)
+================================================================================
+
+[PAUSE]
+
+Here, users define data sanitization rules to ensure data security and integrity, 
+specifying how input data should be cleaned and validated before processing.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 13: FRONTEND IMPLEMENTATION - DATA TRANSFORMATION LOGIC (12 seconds)
+================================================================================
+
+[PAUSE]
+
+Finally, this screenshot displays the data transformation module, where users configure 
+how data flows and transforms through the system during processing.
+
+[PAUSE]
+
+Together, these five implementation slides demonstrate the complete user experience of 
+our AI-assisted configuration interface—intuitive, comprehensive, and requiring no 
+programming knowledge to operate.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 14: BACKEND ARTIFACT COVERAGE - CLEAN ARCHITECTURE LAYERS (50 seconds)
+================================================================================
+
+[PAUSE - Reference the table on screen.]
+
+This is a critical achievement: our system generates ten comprehensive backend artifacts 
+organized across four distinct architectural layers of Clean Architecture.
+
+In the Domain layer, we generate Entity Classes that represent core business concepts.
+
+In the Infrastructure layer, we generate the DbContext for database configuration, 
+Repository implementations for data access, and Extensions for infrastructure utilities.
+
+In the Application layer—the most substantial layer—we generate Data Transfer Objects 
+for request/response contracts, Pagination utilities for large datasets, Service 
+interfaces that define business logic contracts, Service implementations containing 
+actual business logic, and Service extensions for additional functionality.
+
+[PAUSE]
+
+In the API layer, we generate Request Models for API input validation and Controllers 
+that handle HTTP requests and route them to appropriate services.
+
+This comprehensive artifact generation across all layers ensures that our system produces 
+complete, production-ready CRUD modules. Developers do not need to manually code these 
+foundational layers—they are automatically generated from the metadata configuration.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 15: BACKEND CODE QUALITY METRICS - EVALUATION RESULTS (60 seconds)
+================================================================================
+
+[PAUSE - Reference the quality metrics table.]
+
+One of our most significant findings is that the generated backend code achieves 
+excellent quality metrics across all evaluated criteria.
+
+We evaluated five code quality dimensions, each on a scale of 1 to 4, with 4 being 
+"Excellent":
+
+First, Layered Architecture Implementation: Score 4.0. Our generated code strictly 
+adheres to Clean Architecture principles, with clear separation between domain, 
+infrastructure, application, and API layers. This is marked as a major update in our 
+system, ensuring architectural excellence in every generated module.
+
+[PAUSE]
+
+Second, Naming Convention Compliance: Score 4.0. All generated code follows ASP.NET 
+Core naming conventions precisely—PascalCase for classes and methods, camelCase for 
+parameters and local variables, and consistent property naming patterns.
+
+Third, Entity Framework Core and Data Annotations: Score 4.0. Our DbContext 
+configurations are optimized, relationships are properly defined, and validation 
+attributes are correctly applied to ensure database integrity.
+
+Fourth, Separation of Concerns: Score 4.0. Business logic is cleanly decoupled from 
+infrastructure concerns, database logic, and API concerns. Each layer has a well-defined 
+responsibility.
+
+[PAUSE]
+
+Fifth, Readability and Maintainability: Score 4.0. The generated code is clean, 
+self-documenting, and easy for developers to understand and extend.
+
+Overall assessment: "Sangat Baik"—Very Good. These metrics validate that our system 
+generates not just functional code, but production-quality code that meets professional 
+software engineering standards.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 16: RESEARCH CONCLUSION - KEY ACHIEVEMENTS (60 seconds)
+================================================================================
+
+[PAUSE]
+
+Now let me synthesize the key achievements and conclusions of this research.
+
+Through this project, we have successfully demonstrated four critical achievements:
+
+First, Unified Single Source of Truth. By implementing a metadata-based Domain-Specific 
+Language, we have created a unified model from which all platform-specific code derives. 
+This eliminates the logic drift problem entirely. One authoritative source ensures 
+consistency across ASP.NET Core and React TypeScript implementations.
+
+[PAUSE]
+
+Second, AI-Driven Efficiency Gains. Our LLM-powered assistant dramatically reduces 
+configuration time. Complex configurations that would require hours of manual setup can 
+now be completed in minutes through AI-guided assistance. This represents a significant 
+productivity improvement for development teams.
+
+Third, Production-Ready Quality. As demonstrated by our metrics, the generated code 
+achieves 4.0/4 ratings across all quality dimensions. This is not mere proof-of-concept 
+code—it is professional-grade, maintainable, and immediately deployable to production 
+environments.
+
+[PAUSE]
+
+Fourth, Seamless Orchestration. We have successfully integrated a complex ecosystem: 
+metadata DSL, LLM AI integration, message-driven architecture, automatic Git operations, 
+and clean architecture code generation. All components work together seamlessly to 
+deliver end-to-end multi-platform code generation.
+
+[PAUSE]
+
+These achievements collectively address the original problem: we have transformed 
+multi-platform development from an inconsistent, time-consuming, fragmented process 
+into a streamlined, consistent, AI-accelerated workflow.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 17: FUTURE WORK & RESEARCH ROADMAP (45 seconds)
+================================================================================
+
+[PAUSE]
+
+While this project represents a significant achievement, there remain exciting 
+opportunities for future research and development.
+
+First, Full CRUD Frontend Generation: We can extend our system to generate complete 
+React TypeScript frontend modules, not just backend code, providing complete application 
+generation.
+
+Second, Platform Expansion: We can broaden support to additional platforms—mobile 
+development with Flutter and React Native, alternative backends like Go or Python.
+
+Third, Advanced AI Orchestration: We can implement more sophisticated LLM workflows 
+for handling complex business logic patterns and intricate API contracts.
+
+[PAUSE]
+
+Fourth, Adaptive DSL Validation: Real-time interactive validation feedback could guide 
+users toward better metadata configurations.
+
+Fifth, Enterprise Scale Testing: Testing against large-scale, high-complexity scenarios 
+would validate system stability and performance.
+
+Sixth, Automated CI/CD Workflows: Full end-to-end deployment automation from generation 
+through testing to production deployment.
+
+[NEXT SLIDE]
+
+================================================================================
+SLIDE 18: CLOSING & GRATITUDE (30 seconds)
+================================================================================
+
+[PAUSE - Maintain direct eye contact.]
+
+In conclusion, this research demonstrates that through careful architecture design, 
+thoughtful application of emerging technologies like Large Language Models, and 
+metadata-driven development approaches, we can solve the long-standing challenge of 
+consistent, efficient multi-platform code generation.
+
+Software engineering is not merely about writing code; it is fundamentally about 
+building solutions that bridge platforms and simplify complexity. This project embodies 
+that philosophy.
+
+[PAUSE]
+
+I sincerely thank the evaluation board, my advisors, and the institution for their 
+support. I am happy to answer any questions you may have.
+
+Thank you.
+
+================================================================================
+PRESENTATION SUMMARY STATISTICS
+================================================================================
+
+Total Slides:        18
+Total Duration:      Approximately 12-14 minutes
+Average per Slide:   40-50 seconds
+
+Slide Breakdown by Duration:
+- Introductory (Slides 1-3):        140 seconds (2 min 20 sec)
+- Technical Architecture (Slides 4-8): 240 seconds (4 minutes)
+- Implementation Showcase (Slides 9-13): 60 seconds (1 minute)
+- Results & Metrics (Slides 14-15):  110 seconds (1 min 50 sec)
+- Conclusion & Close (Slides 16-18): 135 seconds (2 min 15 sec)
+
+Total Content Time:  685 seconds (approximately 11 minutes 25 seconds)
+[Buffer for pauses, emphasis, and audience engagement: 2-3 minutes]
+
+================================================================================
+PRESENTER GUIDANCE NOTES
+================================================================================
+
+PACING:
+- Speak at a natural pace: 130-140 words per minute
+- Pause after important points to allow audience comprehension
+- Maintain steady eye contact with the board members
+- Monitor audience reactions for comprehension
+
+EMPHASIS POINTS:
+- Problem Statement: Emphasize the "logic drift" concept and release cycle pressure
+- Objectives: Clearly articulate the three pillars: SSoT, LLM, Multi-Platform
+- Architecture: Explain the asynchronous message-driven design rationale
+- Batching: Emphasize this is an innovation that reduces costs and improves efficiency
+- Quality Metrics: Highlight that all five dimensions scored 4.0/4
+- Conclusion: Tie all achievements back to solving the original problem
+
+SLIDE TRANSITIONS:
+- Allow 3-5 seconds for audience to read each new slide
+- Use "Notice that..." or "As you can see..." to direct attention
+- Maintain narrative flow between slides
+
+DIFFICULT CONCEPTS:
+- If questioned on DSL or LLM integration: Explain DSL as "configuration language" 
+  and LLM integration as "AI assistant for rapid setup"
+- If questioned on batching: Explain it reduces token cost while maintaining context awareness
+- If questioned on quality metrics: Explain these are measured against professional standards
+
+CONTINGENCIES:
+- If running over time: Reduce time on slides 9-13 showcase (each can be 6-7 seconds)
+- If audience seems confused: Pause and ask "Is this clear so far?"
+- If technical questions arise: Refer to thesis document for detailed implementation
+
+CONFIDENCE BUILDERS:
+- You have designed and implemented this entire system
+- The metrics validate your work objectively
+- The architecture is sound and scalable
+- You have solutions to real industry problems
+
+================================================================================
+END OF PRESENTATION SCRIPT
+================================================================================
