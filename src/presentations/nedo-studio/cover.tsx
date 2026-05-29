@@ -51,7 +51,7 @@ export default function CoverSlide({ mode }: SlideProps) {
         <p className="m-0 text-[0.74rem] uppercase tracking-[0.2em] text-emerald-200/80 font-medium">
           Lab Meeting
         </p>
-        <span className="text-sm text-emerald-200/60 font-mono">01 / 01</span>
+        <span className="text-sm text-emerald-200/60 font-mono">01 / 10</span>
       </div>
 
       <div className="mt-10 max-w-4xl">
